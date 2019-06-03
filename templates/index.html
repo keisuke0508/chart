@@ -2,60 +2,58 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>chart</title>
+    <title>chartjs</title>
 
     <!-- cdn -->
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-    <!-- chartist.js -->
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   </head>
 
+  <!-- template -->
   <body>
-    <!-- chart js -->
-    <h2>chartjs</h2>
+    <h2>売上</h2>
     <div style="width:500px; height:500px;">
-      <canvas id="chart_js"></canvas>
+      <canvas id="bar"></canvas>
     </div>
 
-    <!-- chartist js -->
-    <h2>chartist</h2>
+    <h2>売上推移</h2>
+    <div style="width:500px; height:500px;">
+      <canvas id="line"></canvas>
+    </div>
+
+    <h2>カテゴリ別売上比（5月）</h2>
+    <div style="width:500px; height:500px;">
+      <canvas id="doughnut"></canvas>
+    </div>
   </body>
 
   <!-- js -->
   <script type="text/javascript">
-    const chart = () => {
-      const ctx = $('#chart_js');
-      const type = 'line'
+    const bar = () => {
+      const ctx = $('#bar');
+      const type = 'bar';
 
       const data = {
-        labels : ["January","February","March","April","May","June","July"],
-        datasets : [
+        labels: ['5/25', '5/26', '5/27', '5/28', '5/29', '5/30', '5/31'],
+        datasets: [
           {
-            fillColor : "rgba(220,220,220,0.5)",
-            strokeColor : "rgba(220,220,220,1)",
-            pointColor : "rgba(220,220,220,1)",
-            pointStrokeColor : "#fff",
-            data : [65,59,90,81,56,55,40],
+            label: '今週の売上（万円）',
+            data: [65, 59, 90, 81, 56, 55, 40],
+            backgroundColor: 'rgba(0, 136, 220, 0.5)',
+            pointStrokeColor: '#0088EA',
           },
           {
-            fillColor : "rgba(151,187,205,0.5)",
-            strokeColor : "rgba(151,187,205,1)",
-            pointColor : "rgba(151,187,205,1)",
-            pointStrokeColor : "#fff",
-            data : [35,52,95,78,54,55,45],
+            label: '先週の売上（万円）',
+            data: [35, 52, 95, 78, 54, 55, 45],
+            backgroundColor: 'rgba(209, 235, 255, 0.5)',
+            pointStrokeColor: '#D1EBFF',
           }
         ]
       }
 
-      const options = {
-        scaleSteps : 10,
-        scaleStartValue : 0,
-        scaleStepWidth : 10,
-      }
+      const options = {};
 
       const config = {
         type: type,
@@ -66,12 +64,66 @@
       new Chart(ctx, config);
     };
 
-    const chartist = () => {
+    const line = () => {
+      const ctx = $('#line');
+      const type = 'line';
+
+      const data = {
+        labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+        datasets: [
+          {
+            label: '売上推移',
+            data: [1050, 1184, 1335, 1296, 1401, 1500],
+            backgroundColor: 'rgba(0, 136, 220, 0.5)',
+            pointStrokeColor: '#0088EA',
+          },
+        ]
+      }
+
+      const options = {};
+
+      const config = {
+        type: type,
+        data: data,
+        options: options,
+      }
+
+      new Chart(ctx, config);
+    };
+
+    const doughnut = () => {
+      const ctx = $('#doughnut');
+      const type = 'doughnut';
+
+      const data = {
+        labels: ['トップス', 'ボトムス', 'アクセサリ'],
+        datasets: [
+          {
+            label: 'カテゴリ別売上比（5月）',
+            data: [400, 600, 200],
+            backgroundColor: [
+              'rgba(202, 71, 117, 0.5)', 'rgba(255, 187, 0, 0.5)', 'rgba(251, 224, 0, 0.5)',
+            ],
+            pointStrokeColor: '#0088EA',
+          },
+        ]
+      }
+
+      const options = {};
+
+      const config = {
+        type: type,
+        data: data,
+        options: options,
+      }
+
+      new Chart(ctx, config);
     };
 
     $(() => {
-      chart();
-      chartist();
+      bar();
+      line();
+      doughnut();
     });
   </script>
 </html>
