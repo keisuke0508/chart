@@ -2,3 +2,5 @@
 
 ## 詳細
 
+[] this pr is approved.
+
